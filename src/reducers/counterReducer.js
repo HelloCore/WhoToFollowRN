@@ -1,33 +1,25 @@
 // @flow
-const PLUS: string = 'COUNTER_PLUS';
-const MINUS: string = 'COUNTER_MINUS';
+import type { CounterAction } from '../actions/counterActions';
 
 const initialState = {
-  count: 0
+  count: 0,
 };
 
 export type CounterState = typeof initialState;
 
-export const plus = (): CounterAction => ({ type: PLUS, payload: 1 });
-export const minus = (): CounterAction => ({ type: MINUS, payload: 1 });
-
-type CounterAction = { type: string, payload: number };
-
-export default function(
-  state: CounterState = initialState,
-  action: CounterAction
-): CounterState {
+export default function (state: CounterState = initialState, action: CounterAction): CounterState {
   switch (action.type) {
-    case PLUS:
+    case 'PLUS':
       return {
         ...state,
-        count: state.count + action.payload
+        count: state.count + action.payload,
       };
-    case MINUS:
+    case 'MINUS':
       return {
         ...state,
-        count: state.count - action.payload
+        count: state.count - action.payload,
       };
+    default:
+      return state;
   }
-  return state;
 }

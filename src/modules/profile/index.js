@@ -2,7 +2,7 @@
 
 import { ProfileScreen } from './ProfileScreen';
 import { connect } from 'react-redux';
-import { plus, minus } from '../../reducers/counterReducer';
+import { plus, minus } from '../../actions/counterActions';
 
 import type { DefaultReduxProps } from '../../types';
 import type { Dispatch } from 'redux';
@@ -13,8 +13,8 @@ type ReduxProps = {
 };
 
 type DispatchProps = {
-  onPlus: () => void,
-  onMinus: () => void,
+  onPlus: () => any,
+  onMinus: () => any,
 };
 
 export type ProfileScreenProps = ReduxProps & DispatchProps & DefaultReduxProps;
@@ -25,7 +25,7 @@ function mapStateToProps(store: AppState): ReduxProps {
   };
 }
 
-function mapDispatchToProps(dispatch: Dispatch<*>) {
+function mapDispatchToProps(dispatch: Dispatch<*>): DispatchProps {
   return {
     onPlus: () => dispatch(plus()),
     onMinus: () => dispatch(minus()),
