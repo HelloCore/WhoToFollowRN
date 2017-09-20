@@ -1,0 +1,16 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "plugins": ["react", "react-native", "jsx-a11y", "flowtype"],
+  "rules": {
+    "global-require": "off",
+    "import/prefer-default-export": "off",
+    "import/first": "off",
+    "class-methods-use-this": "off",
+    "no-use-before-define": "off",
+    "no-underscore-dangle": "off",
+    "react/jsx-filename-extension": "off",
+    "jsx-a11y/href-no-hash": "off",
+    "react/prefer-stateless-function": "off"
+  }
+}
