@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#8BBF49',
   },
   followBtn: {
-    height: 35,
+    height: 30,
     width: 90,
     flexDirection: 'row',
     justifyContent: 'center',

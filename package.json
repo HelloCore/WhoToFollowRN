@@ -10,6 +10,7 @@
 		"axios": "^0.16.2",
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.48.3",
+		"react-native-loading-spinner-overlay": "^0.5.2",
 		"react-native-navigation": "^1.1.228",
 		"react-redux": "^5.0.6",
 		"redux": "^3.7.2",

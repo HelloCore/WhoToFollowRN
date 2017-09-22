@@ -3968,6 +3968,10 @@ react-devtools-core@^2.5.0:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
+react-native-loading-spinner-overlay@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/react-native-loading-spinner-overlay/-/react-native-loading-spinner-overlay-0.5.2.tgz#b7bcd277476d596615fd7feee601789f9bdc7acc"
+
 react-native-navigation@^1.1.228:
   version "1.1.228"
   resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.228.tgz#3fc00ecea3f29d40556fdce316858815bb73b509"

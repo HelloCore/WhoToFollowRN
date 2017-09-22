@@ -24,11 +24,24 @@ export type GithubUser = {
   site_admin: boolean,
 };
 
+export type GitHubUserDetail = {
+  avatar_url: string,
+  name: string,
+  login: string,
+  followers: number,
+  following: number,
+  bio: string,
+  location: string,
+  html_url: string,
+};
+
 export type GitHubState = {
   userList: Array<GithubUser>,
   isLoading: boolean,
   isFetching: boolean,
   followedUsers: Set<string>,
+  userDetail: ?GitHubUserDetail,
+  redirect: boolean,
 };
 
 const initialState: GitHubState = {
@@ -36,6 +49,8 @@ const initialState: GitHubState = {
   isLoading: false,
   isFetching: false,
   followedUsers: new Set(),
+  userDetail: null,
+  redirect: false,
 };
 
 export default function (state: GitHubState = initialState, action: GithubAction): GitHubState {
@@ -52,6 +67,7 @@ export default function (state: GitHubState = initialState, action: GithubAction
         userList: state.userList.concat(action.list),
       };
     case 'FETCH_USER_FAILURE':
+      // TODO: handle error
       return {
         ...state,
         isFetching: false,
@@ -85,6 +101,33 @@ export default function (state: GitHubState = initialState, action: GithubAction
       return {
         ...state,
         followedUsers,
+      };
+
+    case 'FETCH_USER_DETAIL':
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case 'FETCH_USER_DETAIL_SUCCESS':
+      return {
+        ...state,
+        isLoading: false,
+        userDetail: action.detail,
+        redirect: true,
+      };
+
+    case 'FETCH_USER_DETAIL_FAILURE':
+      // TODO: handle error
+      return {
+        ...state,
+        isLoading: false,
+      };
+
+    case 'REDIRECT_COMPLETED':
+      return {
+        ...state,
+        redirect: false,
       };
 
     default:

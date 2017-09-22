@@ -2,34 +2,28 @@
 
 import { ProfileScreen } from './ProfileScreen';
 import { connect } from 'react-redux';
-import { plus, minus } from '../../actions/counterActions';
 
 import type { DefaultReduxProps } from '../../types';
 import type { Dispatch } from 'redux';
 import type { AppState } from '../../reducers/rootReducers';
+import type { GitHubUserDetail } from '../../reducers/githubReducer';
 
 type ReduxProps = {
-  counter: number,
+  userDetail: ?GitHubUserDetail,
 };
 
-type DispatchProps = {
-  onPlus: () => any,
-  onMinus: () => any,
-};
+type DispatchProps = {};
 
 export type ProfileScreenProps = ReduxProps & DispatchProps & DefaultReduxProps;
 
 function mapStateToProps(store: AppState): ReduxProps {
   return {
-    counter: store.counter.count,
+    userDetail: store.github.userDetail,
   };
 }
 
 function mapDispatchToProps(dispatch: Dispatch<*>): DispatchProps {
-  return {
-    onPlus: () => dispatch(plus()),
-    onMinus: () => dispatch(minus()),
-  };
+  return {};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen);
