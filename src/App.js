@@ -24,7 +24,7 @@ export default class App extends Component<void, void, void> {
     Navigation.startSingleScreenApp({
       screen: {
         screen: HOME_SCREEN,
-        title: 'Home',
+        title: 'Github User',
         navigatorStyle: {
           navBarHidden: false,
         },

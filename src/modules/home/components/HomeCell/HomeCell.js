@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, Button, Dimensions } from 'react-native';
+import { View, StyleSheet, Text, Button, Dimensions, Image } from 'react-native';
 
 import FollowButton from '../../../../components/FollowButton';
 
@@ -13,7 +13,7 @@ export class HomeCell extends Component<void, HomeCellProps, void> {
     return (
       <View style={styles.container}>
         <View style={styles.nameContainer}>
-          <View style={styles.coverImage} />
+          <Image style={styles.coverImage} source={{ uri: this.props.user.avatar_url }} />
           <Text style={styles.nameLabel}>{this.props.user.login}</Text>
         </View>
         <FollowButton
@@ -40,14 +40,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   nameLabel: {
-    marginLeft: 10,
-    fontSize: 20,
+    marginLeft: 25,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#575757',
   },
   coverImage: {
-    backgroundColor: 'red',
+    backgroundColor: '#575757',
     width: 70,
     height: 70,
     borderRadius: 35,
+    shadowRadius: 10,
+    shadowOpacity: 1,
+    shadowColor: 'black',
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
   },
   followBtn: {},
 });
