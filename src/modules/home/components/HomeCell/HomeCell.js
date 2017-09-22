@@ -13,7 +13,9 @@ export class HomeCell extends Component<void, HomeCellProps, void> {
     return (
       <View style={styles.container}>
         <View style={styles.nameContainer}>
-          <Image style={styles.coverImage} source={{ uri: this.props.user.avatar_url }} />
+          <View style={styles.coverImageContainer}>
+            <Image style={styles.coverImage} source={{ uri: this.props.user.avatar_url }} />
+          </View>
           <Text style={styles.nameLabel}>{this.props.user.login}</Text>
         </View>
         <FollowButton
@@ -44,19 +46,20 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#575757',
+    overflow: 'hidden',
   },
-  coverImage: {
-    backgroundColor: '#575757',
+  coverImageContainer: {
     width: 70,
     height: 70,
     borderRadius: 35,
-    shadowRadius: 10,
-    shadowOpacity: 1,
-    shadowColor: 'black',
-    shadowOffset: {
-      width: 2,
-      height: 2,
-    },
+    overflow: 'hidden',
+    backgroundColor: '#575757',
+  },
+  coverImage: {
+    overflow: 'hidden',
+    borderRadius: 35,
+    width: 70,
+    height: 70,
   },
   followBtn: {},
 });

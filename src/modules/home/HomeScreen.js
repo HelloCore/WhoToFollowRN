@@ -66,7 +66,7 @@ export class HomeScreen extends Component<void, HomeScreenProps, void> {
   }
 
   _renderItem(item: GithubUser, index: number) {
-    if (Platform.OS == 'ios') {
+    if (Platform.OS === 'ios') {
       return (
         <TouchableOpacity onPress={() => this._onTapAtIndex(index)} activeOpacity={0.4}>
           <HomeCell key={item.login} index={index} />
@@ -75,7 +75,9 @@ export class HomeScreen extends Component<void, HomeScreenProps, void> {
     }
     return (
       <TouchableNativeFeedback onPress={() => this._onTapAtIndex(index)}>
-        <HomeCell key={item.login} index={index} />
+        <View>
+          <HomeCell key={item.login} index={index} />
+        </View>
       </TouchableNativeFeedback>
     );
   }
@@ -95,6 +97,7 @@ export class HomeScreen extends Component<void, HomeScreenProps, void> {
     return (
       <View style={styles.container}>
         <FlatList
+          initialNumToRender={7}
           refreshing={this.props.isRefreshingData}
           keyExtractor={item => item.login}
           data={this.props.userList}
@@ -107,6 +110,7 @@ export class HomeScreen extends Component<void, HomeScreenProps, void> {
             }
           }}
           ListFooterComponent={() => this._renderFooter()}
+          ListEmptyComponent={() => <View />}
           renderItem={({ item, index }) => this._renderItem(item, index)}
         />
         <Spinner visible={this.props.isLoading} textStyle={{ color: '#FFF' }} />
@@ -116,5 +120,7 @@ export class HomeScreen extends Component<void, HomeScreenProps, void> {
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flex: 1,
+  },
 });

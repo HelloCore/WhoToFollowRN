@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import {
   Button,
   Text,
+  View,
   StyleSheet,
   TouchableNativeFeedback,
   TouchableOpacity,
@@ -30,14 +31,18 @@ export class FollowButton extends Component<void, FollowButtonProps, void> {
 
     if (Platform.OS === 'ios') {
       return (
-        <TouchableOpacity style={style} onPress={() => this._onBtnPress()}>
-          <Text style={styles.textStyle}>{title}</Text>
+        <TouchableOpacity onPress={() => this._onBtnPress()}>
+          <View style={style}>
+            <Text style={styles.textStyle}>{title}</Text>
+          </View>
         </TouchableOpacity>
       );
     }
     return (
       <TouchableNativeFeedback style={style} onPress={() => this._onBtnPress()}>
-        <Text style={styles.textStyle}>{title}</Text>
+        <View style={style}>
+          <Text style={styles.textStyle}>{title}</Text>
+        </View>
       </TouchableNativeFeedback>
     );
 

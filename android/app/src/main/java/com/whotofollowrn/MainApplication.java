@@ -3,7 +3,6 @@ package com.whotofollowrn;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.rnfs.RNFSPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -14,7 +13,7 @@ import java.util.List;
 
 import com.reactnativenavigation.NavigationApplication;
 
-public class MainApplication extends Application implements NavigationApplication {
+public class MainApplication extends NavigationApplication {
     @Override
     public boolean isDebug() {
       // Make sure you are using BuildConfig from your own application
@@ -33,6 +32,8 @@ public class MainApplication extends Application implements NavigationApplicatio
     public List<ReactPackage> createAdditionalReactPackages() {
       return getPackages();
     }
+
+
   // private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
   //   @Override
   //   public boolean getUseDeveloperSupport() {
@@ -43,7 +44,7 @@ public class MainApplication extends Application implements NavigationApplicatio
   //   protected List<ReactPackage> getPackages() {
   //     return Arrays.<ReactPackage>asList(
   //         new MainReactPackage(),
-            new RNFSPackage()
+//            new RNFSPackage()
   //     );
   //   }
   // };
