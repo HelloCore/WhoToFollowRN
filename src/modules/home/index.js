@@ -2,8 +2,7 @@
 
 import { HomeScreen } from './HomeScreen';
 import { connect } from 'react-redux';
-import { plus, minus } from '../../actions/counterActions';
-import { fetchUser } from '../../actions/githubActions';
+import { fetchUser, clearUser } from '../../actions/githubActions';
 
 import type { DefaultReduxProps } from '../../types';
 import type { Dispatch } from 'redux';
@@ -12,33 +11,45 @@ import type { GithubUser } from '../../reducers/githubReducer';
 
 type ReduxProps = {
   counter: number,
-  isFetching: boolean,
-  isLoading: boolean,
+  isRefreshingData: boolean, // Fetching Data ** Refresh
+  isFetchingData: boolean, // Fetching Data ** Load More
+  isLoading: boolean, // Loading Data ** Full Screen Load
   userList: Array<GithubUser>,
 };
 
 type DispatchProps = {
-  onPlus: () => any,
-  onMinus: () => any,
   onFetchUser: () => any,
+  onClearUser: () => any,
 };
 
 export type HomeScreenProps = ReduxProps & DispatchProps & DefaultReduxProps;
 
 function mapStateToProps(store: AppState): ReduxProps {
+  const { userList, isFetching } = store.github;
+
+  let isFetchingData = false;
+  let isRefreshingData = false;
+
+  if (isFetching === true) {
+    if (userList.length == 0) {
+      isRefreshingData = true;
+    } else {
+      isFetchingData = true;
+    }
+  }
   return {
     counter: store.counter.count,
-    isFetching: store.github.isFetching,
     isLoading: store.github.isLoading,
-    userList: store.github.userList,
+    userList,
+    isRefreshingData,
+    isFetchingData,
   };
 }
 
 function mapDispatchToProps(dispatch: Dispatch<*>): DispatchProps {
   return {
-    onPlus: () => dispatch(plus()),
-    onMinus: () => dispatch(minus()),
     onFetchUser: () => dispatch(fetchUser()),
+    onClearUser: () => dispatch(clearUser()),
   };
 }
 

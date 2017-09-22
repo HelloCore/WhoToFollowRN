@@ -28,8 +28,24 @@ export function fetchUserFailure(message: string): GithubAction {
   };
 }
 
+export function followUser(login: string): GithubAction {
+  return {
+    type: 'FOLLOW_USER',
+    login,
+  };
+}
+
+export function unfollowUser(login: string): GithubAction {
+  return {
+    type: 'UNFOLLOW_USER',
+    login,
+  };
+}
+
 export type GithubAction =
   | { type: 'FETCH_USER' }
   | { type: 'FETCH_USER_SUCCESS', list: Array<GithubUser> }
   | { type: 'FETCH_USER_FAILURE', message: string }
-  | { type: 'CLEAR_USER' };
+  | { type: 'CLEAR_USER' }
+  | { type: 'FOLLOW_USER', login: string }
+  | { type: 'UNFOLLOW_USER', login: string };

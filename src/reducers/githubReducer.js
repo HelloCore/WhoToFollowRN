@@ -1,4 +1,6 @@
 // @flow
+import { REHYDRATE } from 'redux-persist/constants';
+
 import type { GithubAction } from '../actions/githubActions';
 import type { AppState } from './rootReducers';
 
@@ -26,12 +28,14 @@ export type GitHubState = {
   userList: Array<GithubUser>,
   isLoading: boolean,
   isFetching: boolean,
+  followedUsers: Set<string>,
 };
 
 const initialState: GitHubState = {
   userList: [],
   isLoading: false,
   isFetching: false,
+  followedUsers: new Set(),
 };
 
 export default function (state: GitHubState = initialState, action: GithubAction): GitHubState {
@@ -52,16 +56,48 @@ export default function (state: GitHubState = initialState, action: GithubAction
         ...state,
         isFetching: false,
       };
+
     case 'CLEAR_USER':
       return {
         ...state,
         userList: [],
       };
+
+    case REHYDRATE:
+      // $FlowFixMe
+      var incoming = action.payload.github;
+      if (incoming) {
+        return { ...state, ...incoming };
+      }
+      return state;
+
+    case 'FOLLOW_USER':
+      const newfollowedUsers = new Set(state.followedUsers);
+      newfollowedUsers.add(action.login);
+      return {
+        ...state,
+        followedUsers: newfollowedUsers,
+      };
+
+    case 'UNFOLLOW_USER':
+      const followedUsers = new Set(state.followedUsers);
+      followedUsers.delete(action.login);
+      return {
+        ...state,
+        followedUsers,
+      };
+
     default:
       return state;
   }
 }
 
-export function getUserCount(state: AppState): number {
-  return state.github.userList.length;
+export function getLastId(state: AppState): number {
+  const lastIndex = state.github.userList.length - 1;
+  const lastUser = state.github.userList[lastIndex];
+
+  if (lastUser) {
+    return lastUser.id;
+  }
+  return 0;
 }

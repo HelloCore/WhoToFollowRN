@@ -4,12 +4,12 @@ import { call, put, takeLatest, fork, all, select } from 'redux-saga/effects';
 import { api } from '../services/api';
 
 import { fetchUser, fetchUserSuccess, fetchUserFailure } from '../actions/githubActions';
-import { getUserCount } from '../reducers/githubReducer';
+import { getLastId } from '../reducers/githubReducer';
 
-function* fetchUsers(): Generator<*, *, *> {
+function* fetchUserEffect(): Generator<*, *, *> {
   try {
-    const since = yield select(getUserCount);
-    const result = yield call(api.fetchUsers, since);
+    const since = yield select(getLastId);
+    const result = yield call(api.fetchUser, since);
 
     yield put(fetchUserSuccess(result.data));
   } catch (error) {
@@ -17,18 +17,18 @@ function* fetchUsers(): Generator<*, *, *> {
   }
 }
 
-function* clearUser(): Generator<*, *, *> {
+function* clearUserEffect(): Generator<*, *, *> {
   yield put(fetchUser());
 }
 
-export function* watchFetchUsers(): Generator<*, *, *> {
-  yield takeLatest('FETCH_USER', fetchUsers);
+export function* watchFetchUser(): Generator<*, *, *> {
+  yield takeLatest('FETCH_USER', fetchUserEffect);
 }
 
-export function* watchClearUsers(): Generator<*, *, *> {
-  yield takeLatest('CLEAR_USER', clearUser);
+export function* watchClearUser(): Generator<*, *, *> {
+  yield takeLatest('CLEAR_USER', clearUserEffect);
 }
 
 export default function* root(): Generator<*, *, *> {
-  yield all([fork(watchFetchUsers)]);
+  yield all([fork(watchFetchUser), fork(watchClearUser)]);
 }
