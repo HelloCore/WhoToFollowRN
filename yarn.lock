@@ -3978,6 +3978,10 @@ react-native-navigation@^1.1.228:
   dependencies:
     lodash "4.x.x"
 
+react-native-orientation@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-orientation/-/react-native-orientation-3.1.0.tgz#ce470fe44a9a47df5be4995b01a1089d3f4a033e"
+
 react-native@0.48.3:
   version "0.48.3"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.48.3.tgz#ec17a66929eb292512b14c091cf260b25e2fba18"

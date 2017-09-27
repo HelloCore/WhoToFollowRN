@@ -1,14 +1,21 @@
 // @flow
 
 import React, { Component } from 'react';
-
 import { Text, View, Image, StyleSheet, Dimensions, Linking, ScrollView } from 'react-native';
+import Orientation from 'react-native-orientation';
 
 import FollowButton from '../../components/FollowButton';
 
 import type { ProfileScreenProps } from '.';
 
 export class ProfileScreen extends Component<void, ProfileScreenProps, void> {
+  componentWillMount() {
+    Orientation.lockToPortrait();
+  }
+
+  componentWillUnmount() {
+    Orientation.unlockAllOrientations();
+  }
   _onTapAtURL() {
     if (this.props.userDetail != null) {
       Linking.openURL(this.props.userDetail.html_url);

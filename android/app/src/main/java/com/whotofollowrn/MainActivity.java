@@ -3,7 +3,18 @@ package com.whotofollowrn;
 import com.facebook.react.ReactActivity;
 import com.reactnativenavigation.controllers.SplashActivity;
 
+import android.content.Intent; // <--- import
+import android.content.res.Configuration; // <--- import
+
 public class MainActivity extends SplashActivity {
+
+    @Override
+      public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Intent intent = new Intent("onConfigurationChanged");
+        intent.putExtra("newConfig", newConfig);
+        this.sendBroadcast(intent);
+    }
 
     /**
      * Returns the name of the main component registered from JavaScript.

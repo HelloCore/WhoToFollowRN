@@ -13,6 +13,8 @@
 #import <React/RCTRootView.h>
 
 #import "RCCManager.h"
+#import "Orientation.h"
+
 
 @implementation AppDelegate
 
@@ -42,5 +44,11 @@
 
   return YES;
 }
+
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+  return [Orientation getOrientation];
+}
+
+
 
 @end
