@@ -1,15 +1,14 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, StyleSheet, Text, Button, Dimensions, Image } from 'react-native';
 
 import FollowButton from '../../../../components/FollowButton';
 
 import type { HomeCellProps } from '.';
 
-export class HomeCell extends Component<void, HomeCellProps, void> {
+export class HomeCell extends PureComponent<void, HomeCellProps, void> {
   render() {
-    const x = Dimensions.get('window').width;
     return (
       <View style={styles.container}>
         <View style={styles.nameContainer}>
@@ -18,12 +17,7 @@ export class HomeCell extends Component<void, HomeCellProps, void> {
           </View>
           <Text style={styles.nameLabel}>{this.props.user.login}</Text>
         </View>
-        <FollowButton
-          login={this.props.user.login}
-          onPress={() => {
-            console.log('Press');
-          }}
-        />
+        <FollowButton login={this.props.user.login} />
       </View>
     );
   }

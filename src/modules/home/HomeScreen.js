@@ -10,6 +10,7 @@ import {
   Platform,
   TouchableOpacity,
   TouchableNativeFeedback,
+  InteractionManager,
 } from 'react-native';
 
 import { PROFILE_SCREEN } from '../../screens';
@@ -68,14 +69,14 @@ export class HomeScreen extends Component<void, HomeScreenProps, void> {
   _renderItem(item: GithubUser, index: number) {
     if (Platform.OS === 'ios') {
       return (
-        <TouchableOpacity onPress={() => this._onTapAtIndex(index)} activeOpacity={0.4}>
+        <TouchableOpacity key={index} onPress={() => this._onTapAtIndex(index)} activeOpacity={0.4}>
           <HomeCell key={item.login} index={index} />
         </TouchableOpacity>
       );
     }
     return (
-      <TouchableNativeFeedback onPress={() => this._onTapAtIndex(index)}>
-        <View>
+      <TouchableNativeFeedback key={index} onPress={() => this._onTapAtIndex(index)}>
+        <View key={index}>
           <HomeCell key={item.login} index={index} />
         </View>
       </TouchableNativeFeedback>
@@ -97,16 +98,20 @@ export class HomeScreen extends Component<void, HomeScreenProps, void> {
     return (
       <View style={styles.container}>
         <FlatList
-          initialNumToRender={7}
           refreshing={this.props.isRefreshingData}
           keyExtractor={item => item.login}
           data={this.props.userList}
           onRefresh={() => {
             this.props.onClearUser();
           }}
-          onEndReached={() => {
+          removeClippedSubviews
+          onEndReachedThreshold={200}
+          onEndReached={(info) => {
             if (this.props.isFetchingData === false && this.props.isRefreshingData === false) {
-              this.props.onFetchUser();
+              console.log(info);
+              InteractionManager.runAfterInteractions(() => {
+                this.props.onFetchUser();
+              });
             }
           }}
           ListFooterComponent={() => this._renderFooter()}

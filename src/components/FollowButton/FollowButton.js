@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   Button,
   Text,
@@ -13,7 +13,7 @@ import {
 
 import type { FollowButtonProps } from '.';
 
-export class FollowButton extends Component<void, FollowButtonProps, void> {
+export class FollowButton extends PureComponent<void, FollowButtonProps, void> {
   _onBtnPress() {
     if (this.props.isFollowed) {
       this.props.onUnfollowUser(this.props.login);
